@@ -1,5 +1,5 @@
 import React from 'react';
-import {ContainerDiv, ContainerDivMobile, Title, TopDiv} from './container-styles'
+import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border} from './container-styles'
 
 // Material UI Icons
 import AddIcon from '@material-ui/icons/Add';
@@ -15,18 +15,20 @@ const Container = ({open}) => {
         {!open ? !tabletSize ? (
             <ContainerDiv>
                 <TopDiv>
-                    <AddIcon style={{marginTop: "28px"}}/>
+                    <AddIcon style={{marginTop: "27px"}}/>
                     <Title>NoteBooks</Title>
-                    <EditIcon style={{marginTop: "28px"}}/>
+                    <EditIcon style={{marginTop: "27px"}}/>
                 </TopDiv>
+                <Border />
             </ContainerDiv>  
         ) : (
             <ContainerDivMobile>
                 <TopDiv>
-                    <AddIcon style={{marginTop: "28px"}}/>
+                    <AddIcon style={{marginTop: "27px"}}/>
                     <Title>NoteBooks</Title>
-                    <EditIcon style={{marginTop: "28px"}}/>
+                    <EditIcon style={{marginTop: "27px"}}/>
                 </TopDiv>
+                <Border />
             </ContainerDivMobile>
         ) : null}
         </>
