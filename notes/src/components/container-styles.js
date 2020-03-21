@@ -16,7 +16,7 @@ export const ContainerDivMobile = styled.div `
     width: calc(100% - 20px);
     height: calc(100vh);
     overflow: hidden;
-    background-color: rgb(255,255,255, .8);
+    background-color: rgba(255,255,255, .8);
     padding: 10px;
 `
 
