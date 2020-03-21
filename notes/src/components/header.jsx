@@ -74,7 +74,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Header() {
+export default function Header({open, handleOpenChange}) {
   const classes = useStyles();
   const phoneSize = useMediaQuery("(max-width:600px)");
 
@@ -87,6 +87,7 @@ export default function Header() {
                     className={classes.menuButton}
                     color="inherit"
                     aria-label="open drawer"
+                    onClick={handleOpenChange}
                 >
                     <MenuIcon />
                 </IconButton>
