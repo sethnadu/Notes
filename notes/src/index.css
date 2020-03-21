@@ -5,6 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background: url("../src/assets/images/notepad.png") no-repeat center center fixed;
+  /* background-position: center; */
+  background-size: cover;
+  /* height: 100vh; */
+
+  
 }
 
 code {

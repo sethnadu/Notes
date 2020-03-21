@@ -1,4 +1,7 @@
 import React from 'react';
+
+
+// Material UI Imports
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,6 +10,9 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+
+// Media Queries
+import useMediaQuery from "@material-ui/core/useMediaQuery"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -18,17 +24,13 @@ const useStyles = makeStyles(theme => ({
   },
   title: {
     flexGrow: 1,
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
+    display: 'block',
     textAlign: 'left',
     color: "black"
   },
   search: {
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
-    // border: "2px solid #ffbf55",
     backgroundColor: fade(theme.palette.common.white, 0.15),
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
@@ -40,6 +42,9 @@ const useStyles = makeStyles(theme => ({
       marginLeft: theme.spacing(1),
       width: 'auto',
     },
+    // [theme.breakpoints.down('sm')]: {
+    //     display: 'none'
+    //   },
   },
   searchIcon: {
     padding: theme.spacing(0, 2),
@@ -71,10 +76,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header() {
   const classes = useStyles();
+  const phoneSize = useMediaQuery("(max-width:600px)");
 
   return (
     <div className={classes.root}>
-      <AppBar position="static" style={{backgroundColor: '#f0ead6'}}>
+      <AppBar position="static" style={{backgroundColor: 'white'}}>
         <Toolbar className={classes.toolBar}>
                 <IconButton
                     edge="start"
@@ -87,7 +93,7 @@ export default function Header() {
                 <Typography className={classes.title} variant="h6" noWrap>
                     <span style={{color: '#ffbf55', fontWeight: 'bold'}}>Scribble</span> Notes
                 </Typography>
-          <div className={classes.search}>
+         {!phoneSize ?  <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -99,7 +105,7 @@ export default function Header() {
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+          </div> : null}
         </Toolbar>
       </AppBar>
     </div>
