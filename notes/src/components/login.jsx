@@ -1,4 +1,7 @@
-import React from "react"
+import React, {useCallback, useContext} from "react"
+import {withRouter, Redirect} from 'react-router'
+import app from '../base'
+import {AuthContext} from "../Auth"
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
@@ -55,8 +58,27 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const Login = () => {
+const Login = ({history}) => {
     const classes = useStyles();
+
+    const handleLogin = useCallback( async event => {
+        event.preventDefault();
+        const {email, password} = event.target.elements;
+        try {
+            await app
+                .auth()
+                .signInWithEmailAndPassword(email.value, password.value)
+            history.push("/home")
+        } catch (error) {
+            console.log(error)
+        }
+    }, [history])
+
+    const {currentUser} = useContext(AuthContext)
+
+    if(currentUser) {
+        return <Redirect to="/home"/>
+    };
 
     return (
         <div style={{display: 'flex', justifyContent: "center"}}>
@@ -65,12 +87,12 @@ const Login = () => {
                     <Typography className={classes.title}>
                     Login
                     </Typography>
-                    <form className={classes.formRoot} noValidate autoComplete="off">
-                        <TextField id="standard-basic" label="Email"/>
-                        <TextField id="standard-basic" label="Password" />
-                        <button className={classes.loginButton}>Login</button>
+                    <form onSubmit = {handleLogin} className={classes.formRoot} noValidate autoComplete="off">
+                        <TextField label="Email" name="email"/>
+                        <TextField label="Password" name="password" />
+                        <button onSubmit = {handleLogin} className={classes.loginButton}>Login</button>
                     </form>
-                    <button className={classes.googleLogin}>Login With Google</button>
+                    <button  className={classes.googleLogin}>Login With Google</button>
                 </CardContent>
             </Card>
         </div>

@@ -1,4 +1,6 @@
-import React from "react"
+import React, {useCallback} from "react"
+import { withRouter } from "react-router"
+import app from "../base";
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
@@ -55,8 +57,21 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignUp = () => {
+const SignUp = ({history}) => {
     const classes = useStyles();
+
+    const handleSignUp = useCallback(async e => {
+        e.preventDefault();
+        const {email, password} = e.target.elements;
+        try {
+            await app
+                .auth()
+                .createUserWithEmailAndPassword(email.value, password.value);
+            history.push('/home')
+        } catch (error) {
+            console.log("Error: ", error)
+        }
+    }, [history])
 
     return (
         <div style={{display: 'flex', justifyContent: "center"}}>
@@ -65,12 +80,10 @@ const SignUp = () => {
                     <Typography className={classes.title}>
                     Register
                     </Typography>
-                    <form className={classes.formRoot} noValidate autoComplete="off">
-                        <TextField id="standard-basic" label="Name" />
-                        <TextField id="standard-basic" label="Email"/>
-                        <TextField id="standard-basic" label="Password" />
-                        <TextField id="standard-basic" label="Verify Password" />
-                        <button className={classes.loginButton}>Sign Up</button>
+                    <form onSubmit={handleSignUp} className={classes.formRoot} noValidate autoComplete="off">
+                        <TextField label="Email" name="email"/>
+                        <TextField label="Password" name="password"/>
+                        <button onSubmit={handleSignUp} className={classes.loginButton}>Sign Up</button>
                     </form>
                     <button className={classes.googleLogin}>Sign Up With Google</button>
                 </CardContent>
