@@ -12,7 +12,7 @@ export const NoteDivClosed = styled.div `
     display: flex;
     justify-content: center;
     margin: auto;
-    width: 80vw;
+    width: 85vw;
     height: calc(100vh - 64px);
     background-color: rgba(255,255,255, .8);
 

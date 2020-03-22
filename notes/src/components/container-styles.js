@@ -40,3 +40,21 @@ export const Border = styled.div `
     margin: 10px auto;
 `
 
+export const BottomDiv = styled.div `
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+
+`
+
+export const SignUpButton = styled.button `
+    width: 250px;
+    font-size: 16px;
+    border-radius: 5px;
+    height: 35px;
+    margin: 20px auto;
+    border: none;
+    background-color: #ffbf55;
+
+`
+
