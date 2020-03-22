@@ -9,7 +9,7 @@ export const AuthProvider = ({children}) => {
     useEffect(() => {
         app.auth().onAuthStateChanged(setCurrentUser);
     }, [])
-
+    console.log(process.env.REACT_APP_FIREBASE_KEY)
     return (
         <AuthContext.Provider
             value={{
