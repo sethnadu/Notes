@@ -2,6 +2,7 @@ import React, {useCallback, useContext} from "react"
 import {withRouter, Redirect} from 'react-router'
 import app from '../base'
 import {AuthContext} from "../Auth"
+import HeaderIntro from './headerIntro'
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
@@ -68,7 +69,7 @@ const Login = ({history}) => {
             await app
                 .auth()
                 .signInWithEmailAndPassword(email.value, password.value)
-            history.push("/home")
+            history.push("/")
         } catch (error) {
             console.log(error)
         }
@@ -80,7 +81,13 @@ const Login = ({history}) => {
         return <Redirect to="/home"/>
     };
 
+    const handleSignUp = () => {
+        history.push('/signup')
+    }
+
     return (
+        <>
+        <HeaderIntro />
         <div style={{display: 'flex', justifyContent: "center"}}>
             <Card className={classes.rootCard}>
                 <CardContent>
@@ -93,9 +100,11 @@ const Login = ({history}) => {
                         <button onSubmit = {handleLogin} className={classes.loginButton}>Login</button>
                     </form>
                     <button  className={classes.googleLogin}>Login With Google</button>
+                    <p>Don't have an account yet? <span style={{fontWeight: "bold", cursor: 'pointer'}} onClick={handleSignUp}>Register Here</span></p>
                 </CardContent>
             </Card>
         </div>
+        </>
     )
 }
 

@@ -1,6 +1,7 @@
 import React, {useCallback} from "react"
 import { withRouter } from "react-router"
 import app from "../base";
+import HeaderIntro from './headerIntro'
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
@@ -10,6 +11,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+
 
 const useStyles = makeStyles(theme => ({
     formRoot: {
@@ -57,23 +59,28 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const SignUp = ({history}) => {
-    const classes = useStyles();
+    const SignUp = ({history}) => {
+        const classes = useStyles();
 
-    const handleSignUp = useCallback(async e => {
-        e.preventDefault();
-        const {email, password} = e.target.elements;
-        try {
-            await app
-                .auth()
-                .createUserWithEmailAndPassword(email.value, password.value);
-            history.push('/home')
-        } catch (error) {
-            console.log("Error: ", error)
+        const handleSignUp = useCallback(async e => {
+            e.preventDefault();
+            const {email, password} = e.target.elements;
+            try {
+                await app
+                    .auth()
+                    .createUserWithEmailAndPassword(email.value, password.value);
+                history.push('/home')
+            } catch (error) {
+                console.log("Error: ", error)
+            }
+        }, [history])
+
+        const handleLogin = () => {
+            history.push('/login')
         }
-    }, [history])
-
     return (
+        <>
+        <HeaderIntro />
         <div style={{display: 'flex', justifyContent: "center"}}>
             <Card className={classes.rootCard}>
                 <CardContent>
@@ -86,9 +93,11 @@ const SignUp = ({history}) => {
                         <button onSubmit={handleSignUp} className={classes.loginButton}>Sign Up</button>
                     </form>
                     <button className={classes.googleLogin}>Sign Up With Google</button>
+                    <p>Have an account? <span style={{fontWeight: "bold", cursor: 'pointer'}} onClick={handleLogin}>Login</span></p>
                 </CardContent>
             </Card>
         </div>
+        </>
     )
 }
 

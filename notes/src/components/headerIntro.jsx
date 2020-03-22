@@ -74,38 +74,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export default function Header(props) {
+export default function HeaderIntro() {
   const classes = useStyles();
-  const phoneSize = useMediaQuery("(max-width:600px)");
+
   return (
     <div className={classes.root}>
       <AppBar position="static" style={{backgroundColor: 'white'}}>
         <Toolbar className={classes.toolBar}>
-                <IconButton
-                    edge="start"
-                    className={classes.menuButton}
-                    color="inherit"
-                    aria-label="open drawer"
-                    onClick={props.handleOpenChange}
-                >
-                    <MenuIcon />
-                </IconButton>
-                <Typography className={classes.title} variant="h6" noWrap>
-                    <span style={{color: '#ffbf55', fontWeight: 'bold'}}>Scribble</span> Notes
-                </Typography>
-         {!phoneSize ?  <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
-            </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
-          </div> : null}
+            <Typography className={classes.title} variant="h6" noWrap>
+                <span style={{color: '#ffbf55', fontWeight: 'bold'}}>Scribble</span> Notes
+            </Typography>
         </Toolbar>
       </AppBar>
     </div>
