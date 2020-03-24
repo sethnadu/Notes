@@ -1,8 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
-import {useDispatch} from 'react-redux'
+import {useDispatch, useSelector} from 'react-redux'
 import {logoutUser} from '../store/actions/index'
-
+import {getAllFolders} from '../store/actions/index'
 
 // Material UI Imports
 import InputBase from '@material-ui/core/InputBase';
@@ -65,12 +65,18 @@ const useStyles = makeStyles(theme => ({
 const Container = (props) => {
     const tabletSize = useMediaQuery("(max-width:860px)");
     const classes = useStyles();
+    const state = useSelector(state => state.folder)
     const dispatch = useDispatch();
-    console.log(props)
+    console.log(state)
 
     const handleLogout = () => {
         dispatch(logoutUser())
     }
+
+    useEffect(() => {
+      dispatch(getAllFolders())
+    }, [state])
+
     return (
         <>
         {!props.open ? !tabletSize ? (
