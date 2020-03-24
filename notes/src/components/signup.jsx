@@ -1,5 +1,5 @@
 import React, {useCallback} from "react"
-import app from "../base";
+// import app from "../util/base";
 import HeaderIntro from './headerIntro'
 
 // Material UI Imports
@@ -81,18 +81,18 @@ const CssTextField = withStyles({
     const SignUp = ({history}) => {
         const classes = useStyles();
 
-        const handleSignUp = useCallback(async e => {
-            e.preventDefault();
-            const {email, password} = e.target.elements;
-            try {
-                await app
-                    .auth()
-                    .createUserWithEmailAndPassword(email.value, password.value);
-                history.push('/home')
-            } catch (error) {
-                console.log("Error: ", error)
-            }
-        }, [history])
+        // const handleSignUp = useCallback(async e => {
+        //     e.preventDefault();
+        //     const {email, password} = e.target.elements;
+        //     try {
+        //         await app
+        //             .auth()
+        //             .createUserWithEmailAndPassword(email.value, password.value);
+        //         history.push('/home')
+        //     } catch (error) {
+        //         console.log("Error: ", error)
+        //     }
+        // }, [history])
 
         const handleLogin = () => {
             history.push('/login')
@@ -106,13 +106,13 @@ const CssTextField = withStyles({
                     <Typography className={classes.title}>
                     Register
                     </Typography>
-                    <form onSubmit={handleSignUp} className={classes.formRoot} noValidate autoComplete="off">
+                    <form className={classes.formRoot} noValidate autoComplete="off">
                         <CssTextField label="Email" name="email"/>
-                        <CssTextField label="Password" name="password"/>
-                        <button onSubmit={handleSignUp} className={classes.loginButton}>Sign Up</button>
+                        <CssTextField type="password" label="Password" name="password"/>
+                        <button  className={classes.loginButton}>Sign Up</button>
                     </form>
                     <button className={classes.googleLogin}>Sign Up With Google</button>
-                    <p>Have an account? <span style={{fontWeight: "bold", cursor: 'pointer'}} onClick={handleLogin}>Login</span></p>
+                    <p>Have an account? <span style={{fontWeight: "bold", cursor: 'pointer'}} >Login</span></p>
                 </CardContent>
             </Card>
         </div>

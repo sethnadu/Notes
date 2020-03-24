@@ -1,0 +1,25 @@
+[debug] [2020-03-24T00:10:31.709Z] ----------------------------------------------------------------------
+[debug] [2020-03-24T00:10:31.711Z] Command:       /usr/local/Cellar/node/13.6.0/bin/node /usr/local/bin/firebase serve
+[debug] [2020-03-24T00:10:31.711Z] CLI Version:   7.16.0
+[debug] [2020-03-24T00:10:31.711Z] Platform:      darwin
+[debug] [2020-03-24T00:10:31.712Z] Node Version:  v13.6.0
+[debug] [2020-03-24T00:10:31.713Z] Time:          Mon Mar 23 2020 20:10:31 GMT-0400 (Eastern Daylight Time)
+[debug] [2020-03-24T00:10:31.713Z] ----------------------------------------------------------------------
+[debug] [2020-03-24T00:10:31.713Z] 
+[debug] [2020-03-24T00:10:31.722Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-03-24T00:10:31.723Z] > authorizing via signed-in user
+[debug] [2020-03-24T00:10:31.723Z] [iam] checking project scribble-notes-6a2d5 for permissions ["firebase.projects.get"]
+[debug] [2020-03-24T00:10:31.726Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/scribble-notes-6a2d5:testIamPermissions  
+
+[debug] [2020-03-24T00:10:31.932Z] <<< HTTP RESPONSE 200
+[debug] [2020-03-24T00:10:31.934Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/scribble-notes-6a2d5  
+ 
+[debug] [2020-03-24T00:10:32.133Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from '/Users/sethnadu/Desktop/Personal/Notes/notes'...
+[info] 
+[debug] [2020-03-24T00:10:32.137Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/scribble-notes-6a2d5/webApps/-/config  
+ 
+[debug] [2020-03-24T00:10:32.556Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: build
+[info] ✔  hosting: Local server: http://localhost:5000

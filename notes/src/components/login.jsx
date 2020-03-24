@@ -1,8 +1,12 @@
-import React, {useCallback, useContext} from "react"
+import React, {useState} from "react"
 import {Redirect} from 'react-router'
-import app from '../base'
-import {AuthContext} from "../Auth"
+// import app from '../util/base'
+import {AuthContext} from "../util/Auth"
 import HeaderIntro from './headerIntro'
+import {loginUser} from '../store/actions/index'
+
+import {useDispatch, useSelector} from 'react-redux'
+import firebaseUser from '../store/actions/auth'
 
 // Material UI Imports
 import TextField from '@material-ui/core/TextField';
@@ -85,30 +89,32 @@ const CssTextField = withStyles({
 
 const Login = ({history}) => {
     const classes = useStyles();
+    const state = useSelector(state => state.auth)
+    const dispatch = useDispatch()
+    const [info, setInfo] = useState({
+        email: "",
+        password: ""
+    });
 
-    const handleLogin = useCallback( async event => {
+    const handleLogin = event => {
         event.preventDefault();
-        const {email, password} = event.target.elements;
-        try {
-            await app
-                .auth()
-                .signInWithEmailAndPassword(email.value, password.value)
-            history.push("/home")
-        } catch (error) {
-            console.log(error)
-        }
-    }, [history])
+        dispatch(loginUser(info.email, info.password))
 
-    const {currentUser} = useContext(AuthContext)
+    }
 
-    if(currentUser) {
-        return <Redirect to="/home"/>
-    };
+    const handleChange = event => {
+        setInfo({...info, [event.target.name] : event.target.value})
+        console.log(info)
+    }
+
 
     const handleSignUp = () => {
         history.push('/signup')
     }
 
+    if (state.isAuthenticated) {
+        return <Redirect to="/home" />;
+    }
     return (
         <>
         <HeaderIntro />
@@ -119,11 +125,11 @@ const Login = ({history}) => {
                     Login
                     </Typography>
                     <form onSubmit = {handleLogin} className={classes.formRoot} noValidate autoComplete="off">
-                        <CssTextField label="Email" name="email"/>
-                        <CssTextField label="Password" name="password" />
+                        <CssTextField onChange={handleChange} label="Email" name="email"/>
+                        <CssTextField onChange={handleChange} type="password" label="Password" name="password" />
                         <button onSubmit = {handleLogin} className={classes.loginButton}>Login</button>
                     </form>
-                    <button  className={classes.googleLogin}>Login With Google</button>
+                    <button className={classes.googleLogin}>Login With Google</button>
                     <p>Don't have an account yet? <span style={{fontWeight: "bold", cursor: 'pointer'}} onClick={handleSignUp}>Register Here</span></p>
                 </CardContent>
             </Card>

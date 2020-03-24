@@ -1,7 +1,6 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
-import {AuthContext} from "../Auth"
-import app from '../base'
+// import app from '../util/base'
 
 
 // Material UI Imports
@@ -64,7 +63,6 @@ const useStyles = makeStyles(theme => ({
 
 const Container = ({open}) => {
     const tabletSize = useMediaQuery("(max-width:860px)");
-    const {currentUser} = useContext(AuthContext)
     const classes = useStyles();
     return (
         <>
@@ -78,7 +76,7 @@ const Container = ({open}) => {
                 <Border />
                 <Border />
                 <BottomDiv>
-                    <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton>
+                    {/* <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton> */}
     
                 </BottomDiv>
             </ContainerDiv>  
@@ -105,7 +103,7 @@ const Container = ({open}) => {
                 <Border />
                 <Border />
                 <BottomDiv>
-                    <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton>
+                    {/* <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton> */}
     
                 </BottomDiv>
             </ContainerDivMobile>
