@@ -1,6 +1,7 @@
 import React from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
-// import app from '../util/base'
+import {useDispatch} from 'react-redux'
+import {logoutUser} from '../store/actions/index'
 
 
 // Material UI Imports
@@ -61,12 +62,18 @@ const useStyles = makeStyles(theme => ({
     },
   }));
 
-const Container = ({open}) => {
+const Container = (props) => {
     const tabletSize = useMediaQuery("(max-width:860px)");
     const classes = useStyles();
+    const dispatch = useDispatch();
+    console.log(props)
+
+    const handleLogout = () => {
+        dispatch(logoutUser())
+    }
     return (
         <>
-        {!open ? !tabletSize ? (
+        {!props.open ? !tabletSize ? (
             <ContainerDiv>
                 <TopDiv>
                     <AddIcon style={{marginTop: "27px"}}/>
@@ -76,7 +83,7 @@ const Container = ({open}) => {
                 <Border />
                 <Border />
                 <BottomDiv>
-                    {/* <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton> */}
+                    <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
     
                 </BottomDiv>
             </ContainerDiv>  
@@ -103,7 +110,7 @@ const Container = ({open}) => {
                 <Border />
                 <Border />
                 <BottomDiv>
-                    {/* <SignUpButton onClick ={() => app.auth().signOut()}>Sign Out</SignUpButton> */}
+                    <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
     
                 </BottomDiv>
             </ContainerDivMobile>

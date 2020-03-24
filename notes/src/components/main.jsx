@@ -9,7 +9,6 @@ const Main = () => {
     const handleOpenChange = () => {
         setOpen(!open)
     }
-    // console.log(open)
     return (
         <>
         <Header open = {open} setOpen={setOpen} handleOpenChange={handleOpenChange}/>

@@ -11,6 +11,10 @@ export const LOGOUT_FAILURE = "LOGOUT_FAILURE";
 export const VERIFY_REQUEST = "VERIFY_REQUEST";
 export const VERIFY_SUCCESS = "VERIFY_SUCCESS";
 
+export const SIGNUP_REQUEST = "SIGNUP_REQUEST";
+export const SIGNUP_SUCCESS = "SIGNUP_SUCCESS";
+export const SIGNUP_FAILURE = "SIGNUP_FAILURE"
+
 
 export const loginUser = (email, password) => dispatch => {
     dispatch({type: LOGIN_REQUEST})
@@ -47,4 +51,17 @@ export const verifyAuth = () => dispatch => {
         }
         dispatch({type: VERIFY_SUCCESS, payload: user})
     })
+}
+
+export const signUpUser = (email, password) => dispatch => {
+    dispatch({type: SIGNUP_REQUEST})
+    myFirebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password)
+        .then(user => {
+            dispatch({type: SIGNUP_SUCCESS, payload: user.res})
+        })
+        .catch(error => {
+            dispatch({type: SIGNUP_FAILURE, payload: error.res})
+        })
 }

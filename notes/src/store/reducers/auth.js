@@ -6,7 +6,10 @@ import {
     LOGOUT_SUCCESS,
     LOGOUT_FAILURE,
     VERIFY_REQUEST,
-    VERIFY_SUCCESS
+    VERIFY_SUCCESS,
+    SIGNUP_REQUEST,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAILURE
 } from '../actions/auth'
 
 
@@ -18,6 +21,8 @@ const initialState = {
     loginError: false,
     logOutError: false,
     isAuthenticated: false,
+    isSigningUp: false,
+    signUpError: false
 }
 
 export const auth = (state = initialState, action) => {
@@ -79,6 +84,28 @@ export const auth = (state = initialState, action) => {
             return {
                 ...state,
                 isVerifying: false
+
+            }
+        case SIGNUP_REQUEST:
+            return {
+                ...state,
+                isSigningUp: true,
+                signUpError: false
+            }
+        case SIGNUP_SUCCESS:
+            return {
+                ...state,
+                isSigningUp: false,
+                isAuthenticated: true,
+                currentUser: action.payload
+
+            }
+        case SIGNUP_FAILURE:
+            return {
+                ...state,
+                isSigningUp: false,
+                isAuthenticated: false,
+                logOutError: true
 
             }
         default:

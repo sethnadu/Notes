@@ -1,5 +1,7 @@
-import React, {useCallback} from "react"
-// import app from "../util/base";
+import React, {useState} from "react"
+import {useDispatch, useSelector} from 'react-redux'
+import {Redirect} from 'react-router'
+import {signUpUser} from '../store/actions/index'
 import HeaderIntro from './headerIntro'
 
 // Material UI Imports
@@ -80,22 +82,29 @@ const CssTextField = withStyles({
 
     const SignUp = ({history}) => {
         const classes = useStyles();
+        const state = useSelector(state => state.auth)
+        const dispatch = useDispatch()
+        const [info, setInfo] = useState({
+            email: "",
+            password: ""
+        });
 
-        // const handleSignUp = useCallback(async e => {
-        //     e.preventDefault();
-        //     const {email, password} = e.target.elements;
-        //     try {
-        //         await app
-        //             .auth()
-        //             .createUserWithEmailAndPassword(email.value, password.value);
-        //         history.push('/home')
-        //     } catch (error) {
-        //         console.log("Error: ", error)
-        //     }
-        // }, [history])
+        const handleChange = event => {
+            setInfo({...info, [event.target.name] : event.target.value})
+            console.log(info)
+        }
+    
+    
+        const handleSignUp = event => {
+            event.preventDefault();
+            dispatch(signUpUser(info.email, info.password))
+        }
 
         const handleLogin = () => {
             history.push('/login')
+        }
+        if (state.isAuthenticated) {
+            return <Redirect to="/home" />;
         }
     return (
         <>
@@ -106,13 +115,13 @@ const CssTextField = withStyles({
                     <Typography className={classes.title}>
                     Register
                     </Typography>
-                    <form className={classes.formRoot} noValidate autoComplete="off">
-                        <CssTextField label="Email" name="email"/>
-                        <CssTextField type="password" label="Password" name="password"/>
-                        <button  className={classes.loginButton}>Sign Up</button>
+                    <form onSubmit={handleSignUp} className={classes.formRoot} noValidate autoComplete="off">
+                        <CssTextField onChange={handleChange} label="Email" name="email"/>
+                        <CssTextField onChange={handleChange} type="password" label="Password" name="password"/>
+                        <button onSubmit={handleSignUp} className={classes.loginButton}>Sign Up</button>
                     </form>
                     <button className={classes.googleLogin}>Sign Up With Google</button>
-                    <p>Have an account? <span style={{fontWeight: "bold", cursor: 'pointer'}} >Login</span></p>
+                    <p>Have an account? <span style={{fontWeight: "bold", cursor: 'pointer'}} onClick={handleLogin}>Login</span></p>
                 </CardContent>
             </Card>
         </div>
