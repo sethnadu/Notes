@@ -22,7 +22,7 @@ export const POST_FOLDER_FAILURE = "POST_FOLDER_FAILURE"
 
 
 export const getAllFolders = () => dispatch => {
-    console.log(db.collection('folders').doc("first folder"))
+    // console.log(db.collection('folders').doc("first folder"))
     dispatch({type: GET_ALL_FOLDERS_REQUEST})
     db
         .collection('folders').doc("first folder")
@@ -37,7 +37,7 @@ export const getAllFolders = () => dispatch => {
 }
 
 
-export const addFolder = (data) => dispatch => {
+export const addFolder = (data) => (dispatch, {getFirebase, getFirestore}) => {
     dispatch({type: POST_FOLDER_REQUEST})
     db
         .collection('folders')

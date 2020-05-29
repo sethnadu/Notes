@@ -9,6 +9,7 @@ import configureStore from './util/configureStore'
 
 const store = configureStore();
 
+
 ReactDOM.render(
     <Provider store = {store}>
         <Router>
