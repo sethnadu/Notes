@@ -5,7 +5,7 @@ import {
 } from "../actions/folder"
 
 const initialState = {
-    allFolders: {},
+    allFolders: [{id: "1", name: "folder-1"}],
     isLoadingAllFolders: false,
     allFoldersErrors: false
 
@@ -23,7 +23,7 @@ export const folderReducer = (state = initialState, action) => {
         case GET_ALL_FOLDERS_SUCCESS:
             return {
                 ...state,
-                allFolders:[...folders, action.payload],
+                allFolders:[...state.allFolders],
                 isLoadingAllFolders: false
             }    
         case GET_ALL_FOLDERS_FAILURE:

@@ -65,17 +65,15 @@ const useStyles = makeStyles(theme => ({
 const Container = (props) => {
     const tabletSize = useMediaQuery("(max-width:860px)");
     const classes = useStyles();
-    const state = useSelector(state => state.folder)
+    const state = useSelector(state => state)
     const dispatch = useDispatch();
-    console.log(state)
+    console.log("state", state)
 
     const handleLogout = () => {
         dispatch(logoutUser())
     }
 
-    useEffect(() => {
-      dispatch(getAllFolders())
-    }, [state])
+    
 
     return (
         <>
@@ -87,6 +85,9 @@ const Container = (props) => {
                     <EditIcon style={{marginTop: "27px"}}/>
                 </TopDiv>
                 <Border />
+                {state.folderReducer.allFolders.length > 0 ? state.folderReducer.allFolders.map(folder => {
+                      return <p key={folder.id}>{folder.name}</p>
+                    }) : null}
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
@@ -114,6 +115,9 @@ const Container = (props) => {
                     <EditIcon style={{marginTop: "27px"}}/>
                 </TopDiv>
                 <Border />
+                    {state.folderReducer.allFolders ? state.folderReducer.allFolders.map(folder => {
+                      return <p key={folder.id}>{folder.name}</p>
+                    }) : null}
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
