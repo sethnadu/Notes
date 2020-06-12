@@ -122,10 +122,13 @@ const Container = (props) => {
                     />
                 </div>
                 <TopDiv>
-                    <AddIcon style={{marginTop: "27px"}}/>
+                    <AddIcon onClick={handleOpenAddFolder} style={{marginTop: "27px", pointer: 'cursor'}}/>
                     <Title>NoteBooks</Title>
-                    <EditIcon style={{marginTop: "27px"}}/>
+                    <EditIcon style={{marginTop: "27px", pointer: 'cursor'}}/>
                 </TopDiv>
+                {openAddFolder === true ? (
+                        <AddFolder />
+                    ) : null}
                 <Border />
                     {state.folderReducer.allFolders ? state.folderReducer.allFolders.map(folder => {
                       return <p key={folder.id}>{folder.name}</p>

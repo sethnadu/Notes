@@ -48,7 +48,6 @@ export const addFolder = (data) => dispatch => {
     db
         .collection('folders')
         .add({
-            created: db.FieldValue.serverTimestamp(),
-            data: data
+            name: data
         })
 }
