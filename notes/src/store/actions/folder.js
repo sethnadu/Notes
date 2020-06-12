@@ -1,5 +1,7 @@
 import {db} from '../../util/base'
 
+export const OPEN_ADD_FOLDER_TEXT = "OPEN_ADD_FOLDER_TEXT"
+
 export const GET_ALL_FOLDERS_REQUEST = "GET_ALL_FOLDERS_REQUEST"
 export const GET_ALL_FOLDERS_SUCCESS = "GET_ALL_FOLDERS_SUCCESS"
 export const GET_ALL_FOLDERS_FAILURE = "GET_ALL_FOLDERS_FAILURE"
@@ -21,6 +23,10 @@ export const POST_FOLDER_FAILURE = "POST_FOLDER_FAILURE"
 // export const DELETE_FOLDER_FAILURE = "DELETE_FOLDER_FAILURE"
 
 
+export const addFolderTextOpen = (open) => dispatch => {
+    dispatch({type: OPEN_ADD_FOLDER_TEXT, payload: !open})
+}
+
 export const getAllFolders = () => dispatch => {
     // console.log(db.collection('folders').doc("first folder"))
     dispatch({type: GET_ALL_FOLDERS_REQUEST})
@@ -37,8 +43,12 @@ export const getAllFolders = () => dispatch => {
 }
 
 
-export const addFolder = (data) => (dispatch, {getFirebase, getFirestore}) => {
+export const addFolder = (data) => dispatch => {
     dispatch({type: POST_FOLDER_REQUEST})
     db
         .collection('folders')
+        .add({
+            created: db.FieldValue.serverTimestamp(),
+            data: data
+        })
 }

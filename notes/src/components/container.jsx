@@ -1,8 +1,9 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {logoutUser} from '../store/actions/index'
-import {getAllFolders} from '../store/actions/index'
+import {addFolderTextOpen} from '../store/actions/index'
+import AddFolder from './addFolder'
 
 // Material UI Imports
 import InputBase from '@material-ui/core/InputBase';
@@ -66,13 +67,22 @@ const Container = (props) => {
     const tabletSize = useMediaQuery("(max-width:860px)");
     const classes = useStyles();
     const state = useSelector(state => state)
+    const openAddFolder = useSelector(state => state.folderReducer.openAddFolder)
     const dispatch = useDispatch();
+    const [newFolder, setNewFolder] = useState();
     console.log("state", state)
 
     const handleLogout = () => {
-        dispatch(logoutUser())
+      dispatch(logoutUser())
     }
 
+    const handleOpenAddFolder = () => {
+      dispatch(addFolderTextOpen(openAddFolder))
+    }
+
+    useEffect(() => {
+
+    })
     
 
     return (
@@ -80,10 +90,13 @@ const Container = (props) => {
         {!props.open ? !tabletSize ? (
             <ContainerDiv>
                 <TopDiv>
-                    <AddIcon style={{marginTop: "27px"}}/>
+                    <AddIcon onClick={handleOpenAddFolder} style={{marginTop: "27px", pointer: 'cursor'}}/>
                     <Title>NoteBooks</Title>
-                    <EditIcon style={{marginTop: "27px"}}/>
+                    <EditIcon style={{marginTop: "27px", pointer: 'cursor'}}/>
                 </TopDiv>
+                {openAddFolder === true ? (
+                        <AddFolder />
+                    ) : null}
                 <Border />
                 {state.folderReducer.allFolders.length > 0 ? state.folderReducer.allFolders.map(folder => {
                       return <p key={folder.id}>{folder.name}</p>
@@ -91,7 +104,6 @@ const Container = (props) => {
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
-    
                 </BottomDiv>
             </ContainerDiv>  
         ) : (

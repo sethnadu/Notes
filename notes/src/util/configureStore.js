@@ -1,22 +1,21 @@
 import { applyMiddleware, createStore, compose } from "redux";
-import thunkMiddleware from "redux-thunk";
+import thunk from "redux-thunk";
 import { verifyAuth } from "../store/actions/index";
 import reducer from "../store/reducers/index";
 import {reduxFirestore, getFirestore} from "redux-firestore"
 import {reactReduxFirebase, getFirebase} from 'react-redux-firebase'
-
-export default function configureStore(persistedState) {
+import {myFirebase} from './base'
+const configureStore = () => {
     const store = createStore(
       reducer,
-      persistedState,
-      compose (
-        applyMiddleware(
-          thunkMiddleware.withExtraArgument({getFirestore, getFirebase})),
-          reduxFirestore(),
-          reactReduxFirebase()
-
+      compose(
+        applyMiddleware(thunk.withExtraArgument({getFirebase, getFirestore})),
+        reduxFirestore(myFirebase),
+        reactReduxFirebase(myFirebase)
         )
     );
     store.dispatch(verifyAuth());
     return store;
   }
+
+  export default configureStore;
