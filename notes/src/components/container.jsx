@@ -69,7 +69,7 @@ const Container = (props) => {
     const state = useSelector(state => state)
     const openAddFolder = useSelector(state => state.folderReducer.openAddFolder)
     const dispatch = useDispatch();
-    const [newFolder, setNewFolder] = useState();
+    // const [newFolder, setNewFolder] = useState();
     console.log("state", state)
 
     const handleLogout = () => {
@@ -80,9 +80,6 @@ const Container = (props) => {
       dispatch(addFolderTextOpen(openAddFolder))
     }
 
-    useEffect(() => {
-
-    })
     
 
     return (
@@ -99,7 +96,8 @@ const Container = (props) => {
                     ) : null}
                 <Border />
                 {state.folderReducer.allFolders.length > 0 ? state.folderReducer.allFolders.map(folder => {
-                      return <p key={folder.id}>{folder.name}</p>
+                    console.log(folder)
+                      return <p key={folder}>{folder.TE}</p>
                     }) : null}
                 <Border />
                 <BottomDiv>

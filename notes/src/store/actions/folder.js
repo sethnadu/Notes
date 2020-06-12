@@ -1,4 +1,5 @@
 import {db} from '../../util/base'
+import { useEffect } from 'react'
 
 export const OPEN_ADD_FOLDER_TEXT = "OPEN_ADD_FOLDER_TEXT"
 
@@ -31,10 +32,11 @@ export const getAllFolders = () => dispatch => {
     // console.log(db.collection('folders').doc("first folder"))
     dispatch({type: GET_ALL_FOLDERS_REQUEST})
     db
-        .collection('folders').doc("first folder")
+        .collection('folders')
         .get()
         .then(folder => {
-            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folder.data()})
+            console.log(folder)
+            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folder.docs})
         })
         .catch(error => {
             console.log("Error retrieving all folders")
@@ -43,11 +45,19 @@ export const getAllFolders = () => dispatch => {
 }
 
 
+
 export const addFolder = (data) => dispatch => {
     dispatch({type: POST_FOLDER_REQUEST})
     db
         .collection('folders')
-        .add({
+        .add({ 
             name: data
         })
+            .then(folder => {
+                dispatch({type: POST_FOLDER_SUCCESS, payload: folder})
+            })
+            .catch(error => {
+                console.log("Error adding folder")
+                dispatch({type: POST_FOLDER_FAILURE, payload: error.res})
+            })
 }

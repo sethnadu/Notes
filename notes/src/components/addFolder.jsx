@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const AddFolder = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
-    const [addNewFolder, setAddNewFolder] = useState({
-        name: ""
-    });
+    const [addNewFolder, setAddNewFolder] = useState({name: ""});
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -29,12 +27,13 @@ const AddFolder = () => {
         }
 
     const handleChanges = (name) => event => {
+        console.log(addNewFolder)
         setAddNewFolder({...addNewFolder, [name]: event.target.value})
     }
 
   return (
     <form onSubmit={handleSubmit} className={classes.root} noValidate autoComplete="off">
-      <TextField style={{padding: " auto 10px auto 10px"}} id="standard-basic" label="Add Folder" onChange={handleChanges}/>
+      <TextField style={{padding: " auto 10px auto 10px"}} id="standard-basic" label="Add Folder" onChange={handleChanges("name")} name="name"/>
       <AddIcon onClick={handleSubmit} />
     </form>
   );
