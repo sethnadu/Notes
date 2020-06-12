@@ -36,7 +36,7 @@ export const getAllFolders = () => dispatch => {
         .get()
         .then(folder => {
             console.log(folder)
-            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folder.docs})
+            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folder})
         })
         .catch(error => {
             console.log("Error retrieving all folders")

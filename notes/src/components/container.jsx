@@ -97,7 +97,7 @@ const Container = (props) => {
                 <Border />
                 {state.folderReducer.allFolders.length > 0 ? state.folderReducer.allFolders.map(folder => {
                     console.log(folder)
-                      return <p key={folder}>{folder.TE}</p>
+                      return <p key={folder}>{folder}</p>
                     }) : null}
                 <Border />
                 <BottomDiv>
