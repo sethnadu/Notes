@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {logoutUser} from '../store/actions/index'
 import {addFolderTextOpen} from '../store/actions/index'
 import AddFolder from './addFolder'
+import FolderExpansion from './folderExpansion'
 
 // Material UI Imports
 import InputBase from '@material-ui/core/InputBase';
@@ -99,8 +100,7 @@ const Container = (props) => {
                     ) : null}
                 <Border />
                 {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
-                  console.log(f)
-                  return <p key={f.id}>{f.name.name}</p>
+                  return <FolderExpansion id = {f.id} name = {f.name.name} />
                     }) :  null}
                 <Border />
                 <BottomDiv>
@@ -132,8 +132,7 @@ const Container = (props) => {
                     ) : null}
                 <Border />
                 {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
-                  console.log(f)
-                  return <p key={f.id}>{f.name.name}</p>
+                  return <FolderExpansion id = {f.id} name = {f.name.name} />
                     }) :  null}
                 <Border />
                 <BottomDiv>
