@@ -10,6 +10,7 @@ import {
 
 const initialState = {
     allFolders: [],
+    getFolders: NaN,
     isLoadingAllFolders: false,
     allFoldersErrors: false,
     openAddFolder: false
@@ -28,7 +29,7 @@ export const folderReducer = (state = initialState, action) => {
         case GET_ALL_FOLDERS_SUCCESS:
             return {
                 ...state,
-                allFolders:[...state.allFolders],
+                allFolders: [...state.allFolders, action.payload],
                 isLoadingAllFolders: false
             }    
         case GET_ALL_FOLDERS_FAILURE:

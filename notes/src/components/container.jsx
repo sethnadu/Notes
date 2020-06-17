@@ -69,8 +69,11 @@ const Container = (props) => {
     const state = useSelector(state => state)
     const openAddFolder = useSelector(state => state.folderReducer.openAddFolder)
     const dispatch = useDispatch();
+    let folders = state.folderReducer.allFolders[0]
+    
+    
     // const [newFolder, setNewFolder] = useState();
-    console.log("state", state)
+    console.log("state", state.folderReducer.allFolders[0])
 
     const handleLogout = () => {
       dispatch(logoutUser())
@@ -95,10 +98,10 @@ const Container = (props) => {
                         <AddFolder />
                     ) : null}
                 <Border />
-                {state.folderReducer.allFolders.length > 0 ? state.folderReducer.allFolders.map(folder => {
-                    console.log(folder)
-                      return <p key={folder}>{folder}</p>
-                    }) : null}
+                {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
+                  console.log(f)
+                  return <p key={f.id}>{f.name.name}</p>
+                    }) :  null}
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
@@ -128,9 +131,10 @@ const Container = (props) => {
                         <AddFolder />
                     ) : null}
                 <Border />
-                    {state.folderReducer.allFolders ? state.folderReducer.allFolders.map(folder => {
-                      return <p key={folder.id}>{folder.name}</p>
-                    }) : null}
+                {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
+                  console.log(f)
+                  return <p key={f.id}>{f.name.name}</p>
+                    }) :  null}
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>

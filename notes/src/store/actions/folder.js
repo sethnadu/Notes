@@ -29,19 +29,25 @@ export const addFolderTextOpen = (open) => dispatch => {
 }
 
 export const getAllFolders = () => dispatch => {
-    // console.log(db.collection('folders').doc("first folder"))
     dispatch({type: GET_ALL_FOLDERS_REQUEST})
     db
         .collection('folders')
         .get()
-        .then(folder => {
-            console.log(folder)
-            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folder})
+        .then((folder) => {
+            let folders = []
+            folder.forEach((f) => {
+                folders.push({
+                    id: f.id,
+                    name: f.data().name
+                })
+            })
+            dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folders})
         })
         .catch(error => {
             console.log("Error retrieving all folders")
             dispatch({type: GET_ALL_FOLDERS_FAILURE, payload: error.res})
         })
+
 }
 
 
