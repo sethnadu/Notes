@@ -7,9 +7,9 @@ export const GET_ALL_FOLDERS_REQUEST = "GET_ALL_FOLDERS_REQUEST"
 export const GET_ALL_FOLDERS_SUCCESS = "GET_ALL_FOLDERS_SUCCESS"
 export const GET_ALL_FOLDERS_FAILURE = "GET_ALL_FOLDERS_FAILURE"
 
-// export const GET_FOLDER_REQUEST = "GET_FOLDER_REQUEST"
-// export const GET_FOLDER_SUCCESS = "GET_FOLDER_SUCCESS"
-// export const GET_FOLDER_FAILURE = "GET_FOLDER_FAILURE"
+export const GET_SINGLE_FOLDER_REQUEST = "GET_SINGLE_FOLDER_REQUEST"
+export const GET_SINGLE_FOLDER_SUCCESS = "GET_SINGLE_FOLDER_SUCCESS"
+export const GET_SINGLE_FOLDER_FAILURE = "GET_SINGLE_FOLDER_FAILURE"
 
 export const POST_FOLDER_REQUEST = "POST_FOLDER_REQUEST"
 export const POST_FOLDER_SUCCESS = "POST_FOLDER_SUCCESS"
@@ -38,7 +38,7 @@ export const getAllFolders = () => dispatch => {
             folder.forEach((f) => {
                 folders.push({
                     id: f.id,
-                    name: f.data().name
+                    name: f.data().name,
                 })
             })
             dispatch({type: GET_ALL_FOLDERS_SUCCESS, payload: folders})
@@ -48,6 +48,26 @@ export const getAllFolders = () => dispatch => {
             dispatch({type: GET_ALL_FOLDERS_FAILURE, payload: error.res})
         })
 
+}
+
+export const getSingleFolderById = (folderID) => dispatch => {
+    dispatch({type: GET_SINGLE_FOLDER_REQUEST})
+    db
+        .collection('folders').doc(folderID)
+        .get()
+    .then((folder) => {
+        // let notes = []
+        //     folder.forEach((n) => {
+        //         notes.push({
+        //             id: n.id,
+        //         })
+        //     })
+        console.log("single folder", folder.data())
+        dispatch({type: GET_SINGLE_FOLDER_SUCCESS, payload: folder})
+    })
+    .catch(error => {
+        dispatch({type: GET_SINGLE_FOLDER_FAILURE, payload: error.res})
+    })
 }
 
 

@@ -19,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const AddFolder = () => {
     const classes = useStyles();
     const dispatch = useDispatch()
+    const state = useSelector(state => state)
     const [addNewFolder, setAddNewFolder] = useState({name: ""});
 
     const handleSubmit = (event) => {

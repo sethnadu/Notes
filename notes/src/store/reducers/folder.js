@@ -2,6 +2,9 @@ import {
     GET_ALL_FOLDERS_REQUEST,
     GET_ALL_FOLDERS_SUCCESS,
     GET_ALL_FOLDERS_FAILURE,
+    GET_SINGLE_FOLDER_REQUEST,
+    GET_SINGLE_FOLDER_SUCCESS,
+    GET_SINGLE_FOLDER_FAILURE,
     OPEN_ADD_FOLDER_TEXT,
     POST_FOLDER_REQUEST,
     POST_FOLDER_SUCCESS,
@@ -10,9 +13,11 @@ import {
 
 const initialState = {
     allFolders: [],
-    getFolders: NaN,
+    singleFolder: [],
     isLoadingAllFolders: false,
+    isLoadingSingleFolder: false,
     allFoldersErrors: false,
+    singleFolderError: false,
     openAddFolder: false
 
 }
@@ -36,6 +41,24 @@ export const folderReducer = (state = initialState, action) => {
             return {
                 ...state,
                 allFoldersErrors: true
+            } 
+        case GET_SINGLE_FOLDER_REQUEST:
+            return {
+                ...state,
+                isLoadingSingleFolder: true,
+                singleFolderError: false
+
+            }
+        case GET_SINGLE_FOLDER_SUCCESS:
+            return {
+                ...state,
+                singleFolder: action.payload,
+                isLoadingSingleFolder: false
+            }    
+        case GET_SINGLE_FOLDER_FAILURE:
+            return {
+                ...state,
+                singleFolderError: true
             }
         case OPEN_ADD_FOLDER_TEXT:
             return {

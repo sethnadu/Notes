@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {logoutUser} from '../store/actions/index'
-import {addFolderTextOpen} from '../store/actions/index'
+import {addFolderTextOpen, getSingleFolderById} from '../store/actions/index'
 import AddFolder from './addFolder'
 import FolderExpansion from './folderExpansion'
 

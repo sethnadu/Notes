@@ -1,50 +1,16 @@
-// import React from 'react';
-// import { makeStyles } from '@material-ui/core/styles';
-// import ExpansionPanel from '@material-ui/core/ExpansionPanel';
-// import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
-// import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
-// import Typography from '@material-ui/core/Typography';
-// import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import React, {useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux'
 
-// const useStyles = makeStyles((theme) => ({
-//   root: {
-//     width: '100%',
-//   },
-//   title: {
-//     fontSize: theme.typography.pxToRem(20),
-//     fontWeight: theme.typography.fontWeightBold,
-//   },
-// }));
+// Store imports
+import {getSingleFolderById} from '../store/actions/index'
 
-// export default function FolderExpansion({name}) {
-//   const classes = useStyles();
-
-//   return (
-//     <div className={classes.root}>
-//       <ExpansionPanel>
-//         <ExpansionPanelSummary
-//           expandIcon={<ExpandMoreIcon />}
-//           aria-controls="panel1a-content"
-//           id="panel1a-header"
-//         >
-//           <Typography className={classes.title}>{name}</Typography>
-//         </ExpansionPanelSummary>
-//         <ExpansionPanelDetails>
-//           <Typography>
-//             Notes go here
-//           </Typography>
-//         </ExpansionPanelDetails>
-//       </ExpansionPanel>
-//     </div>
-//   );
-// }
-
-import React from 'react';
+// Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import MuiExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import Typography from '@material-ui/core/Typography';
+
 
 const ExpansionPanel = withStyles({
   root: {
@@ -87,12 +53,18 @@ const ExpansionPanelDetails = withStyles((theme) => ({
   },
 }))(MuiExpansionPanelDetails);
 
-export default function FolderExpansion({name}) {
+export default function FolderExpansion({name, id}) {
+  const dispatch = useDispatch()
+  console.log(id)
+  const state = useSelector(state => state.folderReducer.singleFolder)
+  // console.log(state)
   const [expanded, setExpanded] = React.useState('panel1');
-
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
+    // dispatch(getSingleFolderById(id))
   };
+
+
 
   return (
     <div>
