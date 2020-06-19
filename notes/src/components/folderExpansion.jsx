@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
 
 // Store imports
-import {getSingleFolderById} from '../store/actions/index'
+import {getSingleFolderNotesById} from '../store/actions/index'
 
 // Material UI Imports
 import { withStyles } from '@material-ui/core/styles';
@@ -53,18 +53,20 @@ const ExpansionPanelDetails = withStyles((theme) => ({
   },
 }))(MuiExpansionPanelDetails);
 
+
+
+
 export default function FolderExpansion({name, id}) {
   const dispatch = useDispatch()
-  console.log(id)
   const state = useSelector(state => state.folderReducer.singleFolder)
-  // console.log(state)
+  
   const [expanded, setExpanded] = React.useState('panel1');
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
-    // dispatch(getSingleFolderById(id))
+    dispatch(getSingleFolderNotesById(id))
   };
 
-
+  console.log("single Folder", state)
 
   return (
     <div>
@@ -74,10 +76,15 @@ export default function FolderExpansion({name, id}) {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <Typography>
-            Notes Here
+            {state ? ( state.map((note => {
+             return <p>{note.title}</p>
+            }) 
+            )) : <p>No notes in folder!</p>}
           </Typography>
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
+    
+    
   );
 }

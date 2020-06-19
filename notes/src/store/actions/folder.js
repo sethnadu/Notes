@@ -34,6 +34,7 @@ export const getAllFolders = () => dispatch => {
         .collection('folders')
         .get()
         .then((folder) => {
+            console.log("all folders", folder)
             let folders = []
             folder.forEach((f) => {
                 folders.push({
@@ -50,25 +51,28 @@ export const getAllFolders = () => dispatch => {
 
 }
 
-export const getSingleFolderById = (folderID) => dispatch => {
+export const getSingleFolderNotesById = (folderID) => dispatch => {
     dispatch({type: GET_SINGLE_FOLDER_REQUEST})
     db
-        .collection('folders').doc(folderID)
+        .collection('folders').doc(folderID).collection("Notes")
         .get()
-    .then((folder) => {
-        // let notes = []
-        //     folder.forEach((n) => {
-        //         notes.push({
-        //             id: n.id,
-        //         })
-        //     })
-        console.log("single folder", folder.data())
-        dispatch({type: GET_SINGLE_FOLDER_SUCCESS, payload: folder})
-    })
-    .catch(error => {
-        dispatch({type: GET_SINGLE_FOLDER_FAILURE, payload: error.res})
-    })
-}
+        .then((singleF) => {
+            // console.log(singleF.data())
+            let notes = []
+            singleF.forEach((n) => {
+                    notes.push({
+                        id: n.id,
+                        text: n.data().text,
+                        title: n.data().title
+                    })
+
+                })
+            dispatch({type: GET_SINGLE_FOLDER_SUCCESS, payload: notes})
+        })
+        .catch(error => {
+            dispatch({type: GET_SINGLE_FOLDER_FAILURE, payload: error.res})
+        })
+    }
 
 
 

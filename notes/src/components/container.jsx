@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {ContainerDiv, ContainerDivMobile, Title, TopDiv, Border, BottomDiv, SignUpButton} from './container-styles'
 import {useDispatch, useSelector} from 'react-redux'
 import {logoutUser} from '../store/actions/index'
-import {addFolderTextOpen, getSingleFolderById} from '../store/actions/index'
+import {addFolderTextOpen} from '../store/actions/index'
 import AddFolder from './addFolder'
 import FolderExpansion from './folderExpansion'
 
@@ -71,10 +71,11 @@ const Container = (props) => {
     const openAddFolder = useSelector(state => state.folderReducer.openAddFolder)
     const dispatch = useDispatch();
     let folders = state.folderReducer.allFolders[0]
+
     
     
     // const [newFolder, setNewFolder] = useState();
-    console.log("state", state.folderReducer.allFolders[0])
+    console.log("state", state.folderReducer.singleFolder)
 
     const handleLogout = () => {
       dispatch(logoutUser())
@@ -100,8 +101,8 @@ const Container = (props) => {
                     ) : null}
                 <Border />
                 {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
-                  return <FolderExpansion id = {f.id} name = {f.name.name} />
-                    }) :  null}
+                  return <FolderExpansion key = {f.id} id = {f.id} name = {f.name.name} />
+                    }) :  null} 
                 <Border />
                 <BottomDiv>
                     <SignUpButton onClick ={handleLogout}>Sign Out</SignUpButton>
@@ -132,7 +133,7 @@ const Container = (props) => {
                     ) : null}
                 <Border />
                 {state.folderReducer.allFolders[0] ? folders.map((f) =>  {
-                  return <FolderExpansion id = {f.id} name = {f.name.name} />
+                  return <FolderExpansion key = {f.id} id = {f.id} name = {f.name.name} />
                     }) :  null}
                 <Border />
                 <BottomDiv>
