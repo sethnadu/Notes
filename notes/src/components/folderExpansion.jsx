@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from 'react-redux'
-
+import Note from './note'
 // Store imports
 import {getSingleFolderNotesById} from '../store/actions/index'
 
@@ -63,25 +63,36 @@ export default function FolderExpansion({name, id}) {
   const [expanded, setExpanded] = React.useState('panel1');
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
-    dispatch(getSingleFolderNotesById(id))
+  
   };
 
-  console.log("single Folder", state)
+  const handleGetNotes = () => {
+    dispatch(getSingleFolderNotesById(id))
+  }
 
+  const handleNote = (noteId) => {
+    state.map((note => {
+        if(noteId === note.id){
+          console.log(noteId)
+        }
+     }) 
+     )
+    
+  }
+
+  
   return (
     <div>
-      <ExpansionPanel square onChange={handleChange('panel1')}>
-        <ExpansionPanelSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography style={{fontSize: "20px", fontWeight: 'bold'}}>{name}</Typography>
+      <ExpansionPanel  square onChange={handleChange('panel1')}>
+        <ExpansionPanelSummary onClick = {handleGetNotes} aria-controls="panel1d-content" id="panel1d-header">
+          <Typography  style={{fontSize: "20px", fontWeight: 'bold'}}>{name}</Typography>
         </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Typography>
-            {state ? ( state.map((note => {
-             return <p>{note.title}</p>
+          <div>
+            {state.length > 0 ? ( state.map((note => {
+             return <p onClick = {handleNote(note.id)} key={note.id}>{note.title}</p>
             }) 
             )) : <p>No notes in folder!</p>}
-          </Typography>
-        </ExpansionPanelDetails>
+          </div>
       </ExpansionPanel>
     </div>
     

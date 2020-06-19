@@ -9,6 +9,7 @@ const Main = () => {
     const [open, setOpen]= useState(true)
     const state = useSelector(state => state)
     const dispatch = useDispatch();
+    const singleFolder = useSelector(state => state.folderReducer.singleFolder)
 
     const handleOpenChange = () => {
         setOpen(!open)
@@ -21,7 +22,7 @@ const Main = () => {
         <Header open = {open} setOpen={setOpen} handleOpenChange={handleOpenChange}/>
         <div style={{display: 'flex'}}>
             <Container open = {open} setOpen={setOpen} handleOpenChange={handleOpenChange}/>
-            <Note open = {open}/>
+            <Note open = {open} singleFolder = {singleFolder}/>
         </div>
         </>
     )

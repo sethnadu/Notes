@@ -74,6 +74,12 @@ export const getSingleFolderNotesById = (folderID) => dispatch => {
         })
     }
 
+// export const getNoteById = (folderID, noteID) => dispatch => {
+//     db
+//         .collection('folders').doc(folderID).collection("Notes").doc(noteID)
+//         .get()
+//         .then((singleNote))
+// }
 
 
 export const addFolder = (data) => dispatch => {
